@@ -1,0 +1,16 @@
+services:
+  grafana:
+    build: .
+    container_name: grafana_3d
+    restart: unless-stopped
+    ports:
+      - "3009:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: ae3e-plotly-panel
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+volumes:
+  grafana_data:
