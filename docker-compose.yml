@@ -6,9 +6,23 @@ services:
     ports:
       - "3009:3000"
     environment:
+      # --- Admin Credentials ---
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: admin
+      
+      # --- Plugin Settings ---
       GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: ae3e-plotly-panel
+      
+      # --- Embedding Settings (CRITICAL FOR FLASK) ---
+      GF_SECURITY_ALLOW_EMBEDDING: "true"          # <--- Allows Iframe embedding
+      GF_SECURITY_COOKIE_SAMESITE: "disabled"      # <--- Helps prevent cookie blocking in some browsers
+      
+      # --- Anonymous Access (Optional but recommended for Dashboards) ---
+      # If you don't set this, the Iframe will show a login screen.
+      GF_AUTH_ANONYMOUS_ENABLED: "true"            # <--- Turns on anonymous access
+      GF_AUTH_ANONYMOUS_ORG_NAME: "Main Org."      # <--- Matches default org
+      GF_AUTH_ANONYMOUS_ORG_ROLE: "Viewer"         # <--- Sets permission level (Viewer/Editor/Admin)
+
     volumes:
       - grafana_data:/var/lib/grafana
 
